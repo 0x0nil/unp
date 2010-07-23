@@ -21,3 +21,31 @@
  * 这样会比较乱，比较容易出错。改为统一格式会好点。这是我的想法，不知道个改变是基于
  * 什么样的想法。
  * */
+
+#include <stdio.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <sys/types.h>
+
+int main(int argc,char *argv[])
+{
+	char *ip_src = argv[1]?argv[1]:"127.0.0.010";
+	printf("ip_src=%s\n",ip_src);
+	struct in_addr addr;
+	int ret;
+	ret = inet_aton(ip_src,&addr);
+	if(ret != 1)
+		printf("inet_aton error %d\n",ret);
+	char *ip_dst;
+	ip_dst = inet_ntoa(addr);
+	printf("test inet_aton:ip_dst=%s\n",ip_dst);
+	
+	ret = inet_pton(AF_INET,ip_src,&addr);
+	if(ret != 0)
+		printf("inet_pton error %d\n",ret);
+	ip_dst = inet_ntoa(addr);
+	printf("test inet_pton:ip_dst=%s\n",ip_dst);
+
+	return 0;
+}
