@@ -12,14 +12,14 @@
 
 int main(int argc,char *argv[])
 {
-	char *a = "abcdefd";
-	char *b = a;
-	void *c = a;
-	b++;
-	c++;
-	printf("%c,%c\n",*b,*(char *)c);
-	b += 2;
-	c += 2;
-	printf("%c,%c\n",*b,*(char *)c);
-	return 0;
+    char *a = "abcdefd";
+    char *b = a;
+    void *c = a;
+    b++;
+    c++;
+    printf("%c,%c\n",*b,*(char *)c);
+    b += 2;
+    c += 2;
+    printf("%c,%c\n",*b,*(char *)c);
+    return 0;
 }

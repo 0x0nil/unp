@@ -30,22 +30,22 @@
 
 int main(int argc,char *argv[])
 {
-	char *ip_src = argv[1]?argv[1]:"127.0.0.010";
-	printf("ip_src=%s\n",ip_src);
-	struct in_addr addr;
-	int ret;
-	ret = inet_aton(ip_src,&addr);
-	if(ret != 1)
-		printf("inet_aton error %d\n",ret);
-	char *ip_dst;
-	ip_dst = inet_ntoa(addr);
-	printf("test inet_aton:ip_dst=%s\n",ip_dst);
-	
-	ret = inet_pton(AF_INET,ip_src,&addr);
-	if(ret != 0)
-		printf("inet_pton error %d\n",ret);
-	ip_dst = inet_ntoa(addr);
-	printf("test inet_pton:ip_dst=%s\n",ip_dst);
+    char *ip_src = argv[1]?argv[1]:"127.0.0.010";
+    printf("ip_src=%s\n",ip_src);
+    struct in_addr addr;
+    int ret;
+    ret = inet_aton(ip_src,&addr);
+    if(ret != 1)
+        printf("inet_aton error %d\n",ret);
+    char *ip_dst;
+    ip_dst = inet_ntoa(addr);
+    printf("test inet_aton:ip_dst=%s\n",ip_dst);
 
-	return 0;
+    ret = inet_pton(AF_INET,ip_src,&addr);
+    if(ret != 0)
+        printf("inet_pton error %d\n",ret);
+    ip_dst = inet_ntoa(addr);
+    printf("test inet_pton:ip_dst=%s\n",ip_dst);
+
+    return 0;
 }
