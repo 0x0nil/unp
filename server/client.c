@@ -3,6 +3,12 @@
  * */
 
 #include <stdio.h>
+#include <errno.h>
+#include <string.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <sys/wait.h>
+#include "../lib/tcp_connect.h"
 
 #define MAXN    16384
 
@@ -36,7 +42,31 @@ main(int argc, char *argv[])
     {
         if((pid = fork()) == 0)         /* child */
         {
-            fd = tcp_connect();
+            for(j=0; j<nloops; j++)
+            {
+                fd = tcp_connect(argv[1],argv[2]);
+
+                write(fd,request, strlen(request));
+
+                if((n = read(fd,reply,nbytes)) != nbytes)
+                {
+                    fprintf(stderr,"server returned %d bytes\n",n);
+                    exit(1);
+                }
+                close(fd);    /* TIME_WAIT on client,not server */
+            }
+            printf("child %d done\n",i);
+            exit(0);
         }
+        /* parent loops around to fork() agian */
     }
+
+    while(wait(NULL) >0)
+        ;
+    if(errno != ECHILD)
+    {
+        perror("wait error");
+        exit(1);
+    }
+    exit(0);
 }
