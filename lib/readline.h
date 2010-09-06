@@ -1,5 +1,5 @@
 #ifndef _READLINE_H_
-#ifndef _READLINE_H_
+#define _READLINE_H_
 
 /*
  * 图3-18 readline函数的改进版
