@@ -6,7 +6,10 @@ client:client.c ../lib/tcp_connect.c
 	gcc -o client client.c ../lib/tcp_connect.c -Wall -g
 serv01:serv01.c ../lib/tcp_connect.c pr_cpu_time.c \
 	web_child.c ../lib/tcp_listen.c ../lib/readline.c \
-	../lib/writen.c
+	../lib/writen.c ../tcpcliserv/sigchldwait.c
 	gcc -o serv01 serv01.c ../lib/tcp_connect.c pr_cpu_time.c \
 		../lib/tcp_listen.c web_child.c ../lib/readline.c \
-		../lib/writen.c -Wall -g
+		../lib/writen.c ../tcpcliserv/sigchldwait.c -Wall -g
+
+clean:
+	rm client serv01

@@ -13,6 +13,7 @@
 #include "../lib/tcp_listen.h"
 #include "pr_cpu_time.h"
 #include "web_child.h"
+#include "../tcpcliserv/sigchldwait.h"
 
 int
 main(int argc, char *argv[])
