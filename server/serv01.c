@@ -30,9 +30,9 @@ main(int argc, char *argv[])
     struct sockaddr *cliaddr;
 
     if(argc == 2)
-        tcp_listen(NULL,argv[1],&addrlen);
+        listenfd = tcp_listen(NULL,argv[1],&addrlen);
     else if(argc == 3)
-        tcp_listen(argv[1],argv[2],&addrlen);
+        listenfd = tcp_listen(argv[1],argv[2],&addrlen);
     else
     {
         fprintf(stdout,"usage:serv01 [<host>] <port#>\n");
@@ -59,7 +59,7 @@ main(int argc, char *argv[])
                 continue;    /* back to for() */
             else
             {
-                perror("accpt error");
+                perror("accept error");
                 exit(1);
             }
         }
