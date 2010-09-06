@@ -8,19 +8,21 @@
 #include <strings.h>
 #include <errno.h>
 #include <signal.h>
+#include <sys/socket.h>
 
 #include "../lib/tcp_listen.h"
 #include "pr_cpu_time.h"
+#include "web_child.h"
 
 int
 main(int argc, char *argv[])
 {
     int listenfd;
     int connfd;
-    pid_t pid;
+    pid_t childpid;
     void sig_chld(int);
-    void sig_init(int);
     void web_clild(int);
+    void sig_int(int);
 
     socklen_t clilen;
     socklen_t addrlen;
@@ -50,7 +52,7 @@ main(int argc, char *argv[])
     {
         clilen = addrlen;
 
-        if((connfd = accpt(listenfd,cliaddr,&clilen)) < 0)
+        if((connfd = accept(listenfd,cliaddr,&clilen)) < 0)
         {
             if(errno == EINTR)
                 continue;    /* back to for() */
